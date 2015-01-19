@@ -4,7 +4,7 @@
   "description": "get info for tv shows and tv filenames",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -t 50000 -s 10000"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,14 @@
   "bugs": {
     "url": "https://github.com/konsumer/tvinfo/issues"
   },
-  "homepage": "https://github.com/konsumer/tvinfo"
+  "homepage": "https://github.com/konsumer/tvinfo",
+  "dependencies": {
+    "bluebird": "^2.8.0",
+    "request": "^2.51.0",
+    "xml2js": "^0.4.4"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
 }
