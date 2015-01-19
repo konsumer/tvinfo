@@ -1,5 +1,5 @@
-[![npm version](https://badge.fury.io/js/tvino.svg)](http://badge.fury.io/js/tvinfo)
-[![Build Status](https://travis-ci.org/konsumer/tvino.svg?branch=master)](https://travis-ci.org/konsumer/tvino)
+[![npm version](https://badge.fury.io/js/tvinfo.svg)](http://badge.fury.io/js/tvinfo)
+[![Build Status](https://travis-ci.org/konsumer/tvinfo.svg?branch=master)](https://travis-ci.org/konsumer/tvinfo)
 
 This uses promises with tvrage to get info about tv shows and fugures out tv info from filename.
 
