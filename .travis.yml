@@ -9,3 +9,4 @@ deploy:
   on:
     tags: true
     repo: konsumer/tvinfo
+    all_branches: true
