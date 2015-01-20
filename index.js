@@ -89,7 +89,7 @@ exports.shows = function(){
         if (err) return reject(err);
         data.shift();
         resolve(data);
-      })
+      });
     });
   });
 };
