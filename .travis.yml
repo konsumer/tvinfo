@@ -1,3 +1,11 @@
 language: node_js
 node_js:
-  - 0.10
+- 0.1
+deploy:
+  provider: npm
+  email: konsumer
+  api_key:
+    secure: F6N2qCajmC/h5daqpbJg8oF6UUSBB9XxC1mAb62Gg/rOEmIoQfCuKd7xt1By/hrRFii8AoqCDxMXkcS8otoIZt5tnBIfyDNER0Tu6pbpyNOc4hlc72e2rdUuma16r7yChilBjjMDPYCsRLEwzlBiL7dqdNWZA/d0fhKybjvGUCM=
+  on:
+    tags: true
+    repo: konsumer/tvinfo
