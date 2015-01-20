@@ -1,6 +1,8 @@
 var Promise = require('bluebird'),
   xml = require('xml2js').parseString,
-  request = Promise.promisifyAll(require("request"));
+  request = Promise.promisifyAll(require('request')),
+  titleCase = require('to-title-case'),
+  path = require('path');
 
 function get(endpoint){
   return new Promise(function(resolve, reject){
@@ -81,4 +83,95 @@ exports.episodes = function(sid){
 exports.episode = function(show_name, season, episode, exact){
   exact = exact ? 1 : 0;
   return get('/feeds/episodeinfo.php?show=' + encodeURIComponent(show_name) + '&exact=' + exact + '&ep=' + season, + 'x' + episode);
+};
+
+/**
+ * Given a video filename, try to guess TV info
+ * big time ripoff: https://www.npmjs.com/package/episoder
+ * @param  {String} filename the filename you are trying to guess things from
+ * @param  {Object} options  options from episoder
+ * @return {Object}          TV info
+ */
+exports.filename = function(filename, options) {
+  var ext = path.extname(filename).toLowerCase(),
+  // the following regex should match:
+  //   Community S01E04.mp4
+  //   Community s01e04.mp4
+  //   Community 1x04.mp4
+  //   Community 1-04.mp4
+    re = /(.*)\D(\d{1,2})[ex\-](\d{1,2})/i,
+    searchResults = filename.match(re),
+    show,
+    season,
+    episode,
+    offset,
+    episodeObject = {};
+
+  options = options || {};
+
+  offset = options.offset || 0;
+  if (searchResults === null) {
+    // this regex should match:
+    //   Community Season 1 Episode 4.mp4
+    // (case insensitive)
+    re = /(.*)Season.*?(\d{1,2}).*Episode\D*?(\d{1,2})/i;
+    searchResults = filename.match(re);
+  }
+
+  if (searchResults === null) {
+    // this regex should match:
+    //   Community 104.mp4
+    re = /(.*)\D(\d)(\d\d)\D/;
+    searchResults = filename.match(re);
+  }
+
+  if (searchResults === null && options.season) {
+    // this regex should match:
+    //   Community 04.mp4
+    // but only if we've specified a season with season flag
+    re = /(.*)\D(\d+)\D/;
+    searchResults = filename.match(re);
+  }
+
+  if (searchResults === null && options.season && options.show) {
+    // this regex should match:
+    //   04.mp4
+    // but only if we've specified a season and show with flags
+    re = /(\d+)\D/;
+    searchResults = filename.match(re);
+  }
+
+  try {
+    show = options.show || searchResults[1];
+  } catch (e) {
+    return null;
+  }
+  show = titleCase(show
+      // remove hanging characters
+      .replace(/^[\-.\s]+|[\-.\s]+$/g, "")
+      .trim());
+
+  if (options.episode) {
+    episode = options.episode + offset;
+    if (searchResults !== null) {
+      searchResults.pop();
+    }
+  } else {
+    try {
+      episode = Number(searchResults.pop()) + offset;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  season = options.season || Number(searchResults.pop());
+
+  episodeObject = {
+    originalFilename: filename,
+    show: show.replace(/\//g,''),
+    season: season,
+    episode: episode,
+    extension: ext
+  };
+  return episodeObject;
 };

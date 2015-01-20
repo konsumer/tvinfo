@@ -10,6 +10,8 @@ Install with `npm install --save tvinfo`.
 
 ## usage
 
+Have a look at `test/tvinfo.test.js` for some examples, but here is quick overview:
+
 ```javascript
 tvinfo = require('tvinfo');
 
@@ -48,5 +50,9 @@ tvinfo.episodes(2930).then(console.log);
 
 // Get info about the pilot episode of Buffy the Vampire Slayer
 tvinfo.episode('Buffy the Vampire Slayer', 1, 1).then(console.log);
+
+// Try to guess TV info, based on the filename
+console.log( tvinfo.filename('Buffy_The_Vampire_Slayer-S01E04.mp4') );
+
 
 ```
