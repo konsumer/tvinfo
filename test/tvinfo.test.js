@@ -13,8 +13,6 @@ describe('tvinfo', function(){
       }, done); 
     });
   });
-
-  return;
   
   describe('.search()', function(){
     it('should search for Buffy', function(done){
