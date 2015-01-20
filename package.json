@@ -4,7 +4,8 @@
   "description": "get info for tv shows and tv filenames",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -t 50000 -s 10000"
+    "test": "mocha -t 50000 -s 10000",
+    "bump": "node bump.js"
   },
   "repository": {
     "type": "git",
