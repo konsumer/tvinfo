@@ -12,9 +12,9 @@ var keepaliveAgent = new Agent({
   keepAliveMsecs: 30000 // keepalive for 30 seconds
 });
 
-function get(endpoint, raw){
+function get(endpoint, raw, options){
   return new Promise(function(resolve, reject){
-    var options = {
+    var options = options || {
       host: 'services.tvrage.com',
       port: 80,
       method: 'GET',
