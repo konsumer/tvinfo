@@ -1,6 +1,6 @@
 {
   "name": "tvinfo",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "get info for tv shows and tv filenames",
   "main": "index.js",
   "scripts": {
