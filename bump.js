@@ -11,7 +11,7 @@ fs.writeFile('package.json', JSON.stringify(pkg,null,2), function(err){
     console.error(err);
     process.exit(1);
   }
-  exec('git stash && git tag v' + pkg.version + '&& git push --tags && git push', function(err, stdout, stderr){
+  exec('git add -A && git commit -am "bump to v"'+pkg.version+' && git tag v' + pkg.version + '&& git push --tags && git push', function(err, stdout, stderr){
     if (err){
       console.error(err);
       process.exit(1);
