@@ -4,6 +4,7 @@ node_js:
 deploy:
   provider: npm
   email: konsumer@jetboystudio.com
+  skip_cleanup: true
   api_key:
     secure: JXBQYUqmhL27kEizzjSb3ENPTchD8n4bsHrnN7zrgZCU5jZxb51dXUp3+0UteeMLUpEzEnCgzBXPYVP4FsVOe1A9qOv/ju8u8q95XPAft2FoNOKCpYSqdSoHlQmifGS9vmnyxEAFCJcvIz92jT7cj+xONKmXsVSk52/BpCWQOo4=
   on:
