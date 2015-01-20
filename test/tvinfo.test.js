@@ -6,6 +6,8 @@ describe('tvinfo', function(){
   describe('.shows()', function(){
     it('should get full list of shows', function(done){
       tvinfo.shows().then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.be.greaterThan(1000);
         done();
       }, done); 
     });

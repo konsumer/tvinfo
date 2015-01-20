@@ -3,6 +3,7 @@ var Promise = require('bluebird'),
   titleCase = require('to-title-case'),
   path = require('path'),
   http = require('http'),
+  csv = require('csv-parse'),
   Agent = require('agentkeepalive');
 
 var keepaliveAgent = new Agent({
@@ -14,7 +15,7 @@ var keepaliveAgent = new Agent({
 
 function get(endpoint, raw, options){
   return new Promise(function(resolve, reject){
-    var options = options || {
+    options = options || {
       host: 'services.tvrage.com',
       port: 80,
       method: 'GET',
@@ -74,7 +75,23 @@ exports.schedule = function(country, full){
  * @return {Promise}
  */
 exports.shows = function(){
-  return get('/feeds/show_list.php');  
+  return new Promise(function(resolve, reject){
+    // cached copy of same data
+    var options = {
+      host: 'epguides.com',
+      port: 80,
+      method: 'GET',
+      path: '/common/allshows.txt',
+      agent: keepaliveAgent
+    };
+    get(null, true, options).then(function(str){
+      csv(str, {columns:["title", "directory", "id", "start_date", "end_date", "episode_count", "runtime", "network", "country"]}, function(err, data){
+        if (err) return reject(err);
+        data.shift();
+        resolve(data);
+      })
+    });
+  });
 };
 
 /**

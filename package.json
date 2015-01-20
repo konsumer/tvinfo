@@ -26,6 +26,7 @@
   "dependencies": {
     "agentkeepalive": "^1.2.0",
     "bluebird": "^2.8.0",
+    "csv-parse": "0.0.6",
     "to-title-case": "^0.1.5",
     "xml2js": "^0.4.4"
   },
