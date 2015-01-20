@@ -8,4 +8,5 @@ deploy:
     secure: Pk/0+OWWGK5lTZjgnpLp3R7M0eK9q8QKYem93ZAX/WJF0uRmrstjnJGDG4tV43KfHqEXf3IyQzRZGEu5mqILeMm8ZRexdy+zSTiFuFuv7bux3LbHb0Rm21YD3tif/36uME67iC89Hs/jqhpvHnFK4CibcHHe50LSw2gwXtHlSDo=
   on:
     tags: true
+    all_branches: true
     repo: konsumer/tvinfo
