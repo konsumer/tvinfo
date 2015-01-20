@@ -1,21 +1,26 @@
 var fs = require('fs');
-var pkg = require('./package.json');
 var exec = require('child_process').exec;
 
-var v = pkg.version.split('.');
-v[2]++;
-pkg.version = v.join('.');
+exports = function(cb){
+  var pkg = JSON.parse(fs.readFileSync(__dirname + '/package.json'));
+  var v = pkg.version.split('.');
+  v[2]++;
+  pkg.version = v.join('.');
+  fs.writeFile('package.json', JSON.stringify(pkg,null,2), function(err){
+    if (err) return cb(err);
+    exec('git add -A && git commit -am "bump to v"'+pkg.version+' && git tag v' + pkg.version + '&& git push --tags && git push', function(err, stdout, stderr){
+      if (err) return cb(err);
+      cb(null, pkg.version);
+    });
+  });
+};
 
-fs.writeFile('package.json', JSON.stringify(pkg,null,2), function(err){
-  if (err){
-    console.error(err);
-    process.exit(1);
-  }
-  exec('git add -A && git commit -am "bump to v"'+pkg.version+' && git tag v' + pkg.version + '&& git push --tags && git push', function(err, stdout, stderr){
+if (!module.parent) {
+  var ver = exports(function(err, version){
     if (err){
       console.error(err);
       process.exit(1);
     }
-    console.log('\033[32m ↑ bumped to \033[39mv' + pkg.version);
+    console.log('\033[32m ↑ bumped to \033[39mv' + version);
   });
-});
+}
