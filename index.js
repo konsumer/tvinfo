@@ -4,6 +4,8 @@ var Promise = require('bluebird'),
   titleCase = require('to-title-case'),
   path = require('path');
 
+require('longjohn');
+
 function get(endpoint){
   return new Promise(function(resolve, reject){
     request.getAsync('http://services.tvrage.com' + endpoint)
