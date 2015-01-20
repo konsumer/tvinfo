@@ -3,9 +3,9 @@ node_js:
 - 0.1
 deploy:
   provider: npm
-  email: konsumer
+  email: konsumer@jetboystudio.com
   api_key:
-    secure: F6N2qCajmC/h5daqpbJg8oF6UUSBB9XxC1mAb62Gg/rOEmIoQfCuKd7xt1By/hrRFii8AoqCDxMXkcS8otoIZt5tnBIfyDNER0Tu6pbpyNOc4hlc72e2rdUuma16r7yChilBjjMDPYCsRLEwzlBiL7dqdNWZA/d0fhKybjvGUCM=
+    secure: Pk/0+OWWGK5lTZjgnpLp3R7M0eK9q8QKYem93ZAX/WJF0uRmrstjnJGDG4tV43KfHqEXf3IyQzRZGEu5mqILeMm8ZRexdy+zSTiFuFuv7bux3LbHb0Rm21YD3tif/36uME67iC89Hs/jqhpvHnFK4CibcHHe50LSw2gwXtHlSDo=
   on:
     tags: true
     repo: konsumer/tvinfo
