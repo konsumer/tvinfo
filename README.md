@@ -53,5 +53,5 @@ console.log( tvinfo.filename('Buffy_The_Vampire_Slayer-S01E04.mp4') );
 
 // Use functions together to get more info about file
 var show = tvinfo.filename('Buffy_The_Vampire_Slayer-S01E04.mp4');
-tvinfo.episode(show.show, show.season, show.episode).then(console.log);
+tvinfo.episode(show.name, show.season, show.episode).then(console.log);
 ```

@@ -106,7 +106,7 @@ describe('tvinfo', function(){
     it('should parse `Buffy_The_Vampire_Slayer-S01E04.mp4`', function(){
       var show = tvinfo.filename('Buffy_The_Vampire_Slayer-S01E04.mp4');
       expect(show).to.be.ok();
-      expect(show.show).to.equal('Buffy the Vampire Slayer');
+      expect(show.name).to.equal('Buffy the Vampire Slayer');
       expect(show.season).to.equal(1);
       expect(show.episode).to.equal(4);
       expect(show.extension).to.equal('.mp4');
@@ -115,7 +115,7 @@ describe('tvinfo', function(){
     it('should parse `Buffy The Vampire Slayer-1x04.avi`', function(){
       var show = tvinfo.filename('Buffy The Vampire Slayer-1x04.avi');
       expect(show).to.be.ok();
-      expect(show.show).to.equal('Buffy the Vampire Slayer');
+      expect(show.name).to.equal('Buffy the Vampire Slayer');
       expect(show.season).to.equal(1);
       expect(show.episode).to.equal(4);
       expect(show.extension).to.equal('.avi');
@@ -124,7 +124,7 @@ describe('tvinfo', function(){
     it('should parse `Buffy_The_Vampire_Slayer.104.mp4`', function(){
       var show = tvinfo.filename('Buffy_The_Vampire_Slayer.104.mp4');
       expect(show).to.be.ok();
-      expect(show.show).to.equal('Buffy the Vampire Slayer');
+      expect(show.name).to.equal('Buffy the Vampire Slayer');
       expect(show.season).to.equal(1);
       expect(show.episode).to.equal(4);
       expect(show.extension).to.equal('.mp4');
@@ -133,7 +133,7 @@ describe('tvinfo', function(){
     it('should parse `Buffy The Vampire Slayer - Season 1 Episode 4.mp4`', function(){
       var show = tvinfo.filename('Buffy The Vampire Slayer - Season 1 Episode 4.mp4');
       expect(show).to.be.ok();
-      expect(show.show).to.equal('Buffy the Vampire Slayer');
+      expect(show.name).to.equal('Buffy the Vampire Slayer');
       expect(show.season).to.equal(1);
       expect(show.episode).to.equal(4);
       expect(show.extension).to.equal('.mp4');
@@ -142,7 +142,7 @@ describe('tvinfo', function(){
     it('should parse `Buffy The Vampire Slayer/Season 1/Episode 4.mp4`', function(){
       var show = tvinfo.filename('Buffy The Vampire Slayer/Season 1/Episode 4.mp4');
       expect(show).to.be.ok();
-      expect(show.show).to.equal('Buffy the Vampire Slayer');
+      expect(show.name).to.equal('Buffy the Vampire Slayer');
       expect(show.season).to.equal(1);
       expect(show.episode).to.equal(4);
       expect(show.extension).to.equal('.mp4');

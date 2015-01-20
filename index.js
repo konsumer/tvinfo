@@ -171,6 +171,11 @@ exports.filename = function(filename, options) {
   //   Community s01e04.mp4
   //   Community 1x04.mp4
   //   Community 1-04.mp4
+  //   Community/S01E04.mp4
+  //   Community/s01e04.mp4
+  //   Community/1x04.mp4
+  //   Community/1-04.mp4
+  //   Community/Season 1/Episode 4.mp4
     re = /(.*)\D(\d{1,2})[ex\-](\d{1,2})/i,
     searchResults = filename.match(re),
     show,
@@ -220,7 +225,7 @@ exports.filename = function(filename, options) {
   }
   show = titleCase(show
       // remove hanging characters
-      .replace(/^[\-.\s]+|[\-.\s]+$/g, "")
+      .replace(/^[\-.\s]+|[\-.\s\/]+$/g, "")
       .trim());
 
   if (options.episode) {
@@ -240,7 +245,7 @@ exports.filename = function(filename, options) {
 
   episodeObject = {
     originalFilename: filename,
-    show: show.replace(/\//g,''),
+    name: show,
     season: season,
     episode: episode,
     extension: ext
