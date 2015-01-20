@@ -12,7 +12,7 @@ var keepaliveAgent = new Agent({
   keepAliveMsecs: 30000 // keepalive for 30 seconds
 });
 
-function get(endpoint){
+function get(endpoint, raw){
   return new Promise(function(resolve, reject){
     var options = {
       host: 'services.tvrage.com',
@@ -29,6 +29,7 @@ function get(endpoint){
       });
       
       res.on('end', function (chunk) {
+        if (raw) return resolve(chunks.join());
         xml(chunks.join(), {strict:false, normalizeTags:true, normalize:true, mergeAttrs:true, explicitArray:false}, function(err, x){
           if (err) return reject(err);
           resolve(x);
@@ -73,7 +74,7 @@ exports.schedule = function(country, full){
  * @return {Promise}
  */
 exports.shows = function(){
-  return get('/feeds/show_list.php');
+  return get('/feeds/show_list.php');  
 };
 
 /**

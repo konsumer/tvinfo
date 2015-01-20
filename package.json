@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -t 50000 -s 10000",
+    "watch": "mocha -w -t 50000 -s 10000",
     "bump": "node bump.js"
   },
   "repository": {
