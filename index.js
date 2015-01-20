@@ -1,30 +1,17 @@
 var Promise = require('bluebird'),
   xml = require('xml2js').parseString,
   titleCase = require('to-title-case'),
-  path = require('path');
+  path = require('path'),
+  http = require('http'),
+  Agent = require('agentkeepalive');
 
-/*
-function get(endpoint){
-  return new Promise(function(resolve, reject){
-    request.getAsync('http://services.tvrage.com' + endpoint)
-      .then(function(r){
-        xml(r[1], {strict:false, normalizeTags:true, normalize:true, mergeAttrs:true, explicitArray:false}, function(err, x){
-          if (err) return reject(err);
-          resolve(x);
-        });
-      }, reject);
-  });
-}
-*/
-
-var http = require('http');
-var Agent = require('agentkeepalive');
 var keepaliveAgent = new Agent({
   maxSockets: 10,
   maxFreeSockets: 10,
   keepAlive: true,
   keepAliveMsecs: 30000 // keepalive for 30 seconds
 });
+
 function get(endpoint){
   return new Promise(function(resolve, reject){
     var options = {
@@ -53,8 +40,6 @@ function get(endpoint){
     req.end();
   });
 }
-
-
 
 /**
  * Search for a show
