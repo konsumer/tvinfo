@@ -23,9 +23,8 @@
   },
   "homepage": "https://github.com/konsumer/tvinfo",
   "dependencies": {
+    "agentkeepalive": "^1.2.0",
     "bluebird": "^2.8.0",
-    "longjohn": "^0.2.4",
-    "request": "^2.51.0",
     "to-title-case": "^0.1.5",
     "xml2js": "^0.4.4"
   },

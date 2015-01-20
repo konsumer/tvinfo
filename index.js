@@ -1,11 +1,9 @@
 var Promise = require('bluebird'),
   xml = require('xml2js').parseString,
-  request = Promise.promisifyAll(require('request')),
   titleCase = require('to-title-case'),
   path = require('path');
 
-require('longjohn');
-
+/*
 function get(endpoint){
   return new Promise(function(resolve, reject){
     request.getAsync('http://services.tvrage.com' + endpoint)
@@ -17,6 +15,46 @@ function get(endpoint){
       }, reject);
   });
 }
+*/
+
+var http = require('http');
+var Agent = require('agentkeepalive');
+var keepaliveAgent = new Agent({
+  maxSockets: 10,
+  maxFreeSockets: 10,
+  keepAlive: true,
+  keepAliveMsecs: 30000 // keepalive for 30 seconds
+});
+function get(endpoint){
+  return new Promise(function(resolve, reject){
+    var options = {
+      host: 'services.tvrage.com',
+      port: 80,
+      method: 'GET',
+      path: endpoint,
+      agent: keepaliveAgent
+    };
+    var req = http.request(options, function (res) {
+      var chunks = [];
+      
+      res.on('data', function (chunk) {
+        chunks.push(chunk);
+      });
+      
+      res.on('end', function (chunk) {
+        xml(chunks.join(), {strict:false, normalizeTags:true, normalize:true, mergeAttrs:true, explicitArray:false}, function(err, x){
+          if (err) return reject(err);
+          resolve(x);
+        });
+      });
+    });
+
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+
 
 /**
  * Search for a show
