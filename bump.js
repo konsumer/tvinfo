@@ -16,6 +16,6 @@ fs.writeFile('package.json', JSON.stringify(pkg,null,2), function(err){
       console.error(err);
       process.exit(1);
     }
-    console.log('bumped to v' + pkg.version);
+    console.log('\033[32m ↑ bumped to \033[39mv' + pkg.version);
   });
 });
