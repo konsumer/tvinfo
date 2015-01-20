@@ -51,9 +51,10 @@ function get(endpoint, raw, options){
  */
 exports.search = function(show_name, full){
   var s = encodeURIComponent(show_name);
+  var sr = function(i){ return i.results.show; };
   return full ?
-    get('/feeds/full_search.php?show=' + s) :
-    get('/feeds/search.php?show=' + s);
+    get('/feeds/full_search.php?show=' + s).then(sr) :
+    get('/feeds/search.php?show=' + s).then(sr);
 };
 
 /**
@@ -62,12 +63,27 @@ exports.search = function(show_name, full){
  * @param  {Boolean} full   return large records?
  * @return {Promise}
  */
-exports.schedule = function(country, full){
-  var url = full ? '/feeds/fullschedule.php' : '/feeds/quickschedule.php';
+exports.schedule = function(country){
+  var url = '/feeds/fullschedule.php';
   if (country){
     url += '?country=' + country;
   }
-  return get(url);
+  var re = function(a){
+    return a;
+  };
+  return get(url).then(function(i){
+    return i.schedule.day.map(function(d){
+      if (!d || !d.time || !d.time.length) return;
+      return d.time.map(function(t){
+        if (!t || !t.show) return;
+        t.show.time = t.ATTR;
+        t.show.day = d.ATTR;
+        t.show.name = t.show.NAME;
+        delete t.show.NAME;
+        return t.show;
+      }).filter(re);
+    }).filter(re);
+  });
 };
 
 /**
@@ -102,8 +118,16 @@ exports.shows = function(){
  */
 exports.show = function(sid, full){
   return full ?
-    get('/feeds/full_show_info.php?sid=' + sid) : 
-    get('/feeds/showinfo.php?sid=' + sid);
+    get('/feeds/full_show_info.php?sid=' + sid).then(function(i){ return i.show; }) : 
+    get('/feeds/showinfo.php?sid=' + sid).then(function(i){
+      for (var k in i.showinfo){
+        if (k.substr(0,4)==='show'){
+          i.showinfo[ k.substr(4) ] = i.showinfo[k];
+          delete i.showinfo[k];
+        }
+      }
+      return i.showinfo;
+    });
 };
 
 /**
@@ -112,7 +136,11 @@ exports.show = function(sid, full){
  * @return {Promise}
  */
 exports.episodes = function(sid){
-  return get('/feeds/episode_list.php?sid=' + sid);
+  return get('/feeds/episode_list.php?sid=' + sid).then(function(i){
+    return i.show.episodelist.season.map(function(e){
+      return e.episode;
+    });
+  });
 };
 
 /**
@@ -125,7 +153,8 @@ exports.episodes = function(sid){
  */
 exports.episode = function(show_name, season, episode, exact){
   exact = exact ? 1 : 0;
-  return get('/feeds/episodeinfo.php?show=' + encodeURIComponent(show_name) + '&exact=' + exact + '&ep=' + season, + 'x' + episode);
+  var url = '/feeds/episodeinfo.php?show=' + encodeURIComponent(show_name) + '&exact=' + exact + '&ep=' + season + 'x' + episode;
+  return get(url).then(function(i){ return i.show; });
 };
 
 /**

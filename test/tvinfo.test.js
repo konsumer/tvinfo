@@ -16,11 +16,16 @@ describe('tvinfo', function(){
   describe('.search()', function(){
     it('should search for Buffy', function(done){
       tvinfo.search("Buffy").then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.equal(3);
         done();
       }, done); 
     });
+
     it('should get more info (slower)', function(done){
       tvinfo.search("Buffy", true).then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.equal(3);
         done();
       }, done); 
     });
@@ -29,41 +34,49 @@ describe('tvinfo', function(){
   describe('.schedule()', function(){
     it('should get current upcoming schedule', function(done){
       tvinfo.schedule().then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.be.greaterThan(20);
         done();
       }, done); 
     });
 
     it('should get current upcoming US schedule', function(done){
       tvinfo.schedule('US').then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.be.greaterThan(20);
         done();
       }, done); 
     });
+
     it('should get current upcoming UK schedule', function(done){
       tvinfo.schedule('UK').then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.be.greaterThan(20);
         done();
       }, done); 
     });
 
     it('should get current upcoming NL schedule', function(done){
       tvinfo.schedule('NL').then(function(res){
-        done();
-      }, done); 
-    });
-    it('should get detailed (slower) current upcoming US schedule', function(done){
-      tvinfo.schedule('US', true).then(function(res){
+        expect(res).to.be.ok();
         done();
       }, done); 
     });
   });
-
+  
   describe('.show()', function(){
     it('should get info about Buffy the Vampire Slayer', function(done){
       tvinfo.show(2930).then(function(res){
+        expect(res).to.be.ok();
+        expect(res.name).to.be.equal('Buffy the Vampire Slayer');
         done();
       }, done); 
     });
     it('should get detailed (slower) info about Buffy the Vampire Slayer', function(done){
       tvinfo.show(2930, true).then(function(res){
+        expect(res).to.be.ok();
+        expect(res.name).to.be.equal('Buffy the Vampire Slayer');
+        expect(res.episodelist).to.be.ok();
         done();
       }, done); 
     });
@@ -72,6 +85,8 @@ describe('tvinfo', function(){
   describe('.episodes()', function(){
     it('should get episodes for Buffy the Vampire Slayer', function(done){
       tvinfo.episodes(2930).then(function(res){
+        expect(res).to.be.ok();
+        expect(res.length).to.equal(7);
         done();
       }, done); 
     });
@@ -80,6 +95,8 @@ describe('tvinfo', function(){
   describe('.episode()', function(){
     it('should get info about the pilot episode of Buffy the Vampire Slayer', function(done){
       tvinfo.episode('Buffy the Vampire Slayer', 1, 1).then(function(res){
+        expect(res).to.be.ok();
+        expect(res.episode.title).to.equal('Welcome to the Hellmouth (1)');
         done();
       }, done); 
     });
