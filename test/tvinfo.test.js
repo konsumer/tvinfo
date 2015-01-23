@@ -35,7 +35,7 @@ describe('tvinfo', function(){
     it('should get current upcoming schedule', function(done){
       tvinfo.schedule().then(function(res){
         expect(res).to.be.ok();
-        expect(res.length).to.be.greaterThan(20);
+        expect(res.length).to.be.greaterThan(5);
         done();
       }, done); 
     });
@@ -43,7 +43,7 @@ describe('tvinfo', function(){
     it('should get current upcoming US schedule', function(done){
       tvinfo.schedule('US').then(function(res){
         expect(res).to.be.ok();
-        expect(res.length).to.be.greaterThan(20);
+        expect(res.length).to.be.greaterThan(5);
         done();
       }, done); 
     });
@@ -51,7 +51,7 @@ describe('tvinfo', function(){
     it('should get current upcoming UK schedule', function(done){
       tvinfo.schedule('UK').then(function(res){
         expect(res).to.be.ok();
-        expect(res.length).to.be.greaterThan(20);
+        expect(res.length).to.be.greaterThan(5);
         done();
       }, done); 
     });

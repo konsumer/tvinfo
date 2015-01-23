@@ -1,5 +1,8 @@
-var Promise = require('bluebird'),
-  xml = require('xml2js').parseString,
+if (!Promise){
+  var Promise = require('bluebird');
+}
+
+var xml = require('xml2js').parseString,
   titleCase = require('to-title-case'),
   path = require('path'),
   http = require('http'),
@@ -30,9 +33,9 @@ function get(endpoint, raw, options){
       });
       
       res.on('end', function (chunk) {
-        if (raw) return resolve(chunks.join());
+        if (raw){ return resolve(chunks.join()); }
         xml(chunks.join(), {strict:false, normalizeTags:true, normalize:true, mergeAttrs:true, explicitArray:false}, function(err, x){
-          if (err) return reject(err);
+          if (err){ return reject(err); }
           resolve(x);
         });
       });
@@ -73,9 +76,9 @@ exports.schedule = function(country){
   };
   return get(url).then(function(i){
     return i.schedule.day.map(function(d){
-      if (!d || !d.time || !d.time.length) return;
+      if (!d || !d.time || !d.time.length) { return; }
       return d.time.map(function(t){
-        if (!t || !t.show) return;
+        if (!t || !t.show){ return; }
         t.show.time = t.ATTR;
         t.show.day = d.ATTR;
         t.show.name = t.show.NAME;
@@ -102,7 +105,7 @@ exports.shows = function(){
     };
     get(null, true, options).then(function(str){
       csv(str, {skip_empty_lines:true,trim:true,auto_parse:true,columns:["title", "directory", "id", "start_date", "end_date", "episode_count", "runtime", "network", "country"]}, function(err, data){
-        if (err) return reject(err);
+        if (err) { return reject(err); }
         data.shift();
         resolve(data);
       });
