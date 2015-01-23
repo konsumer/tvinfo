@@ -32,7 +32,7 @@ function get(endpoint, raw, options){
         chunks.push(chunk);
       });
       
-      res.on('end', function (chunk) {
+      res.on('end', function () {
         if (raw){ return resolve(chunks.join()); }
         xml(chunks.join(), {strict:false, normalizeTags:true, normalize:true, mergeAttrs:true, explicitArray:false}, function(err, x){
           if (err){ return reject(err); }
