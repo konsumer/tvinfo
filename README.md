@@ -8,9 +8,6 @@ It includes every tvrage API function.
 [![Build Status](https://travis-ci.org/konsumer/tvinfo.svg?branch=master)](https://travis-ci.org/konsumer/tvinfo)
 [![Code Climate](https://codeclimate.com/github/konsumer/tvinfo/badges/gpa.svg)](https://codeclimate.com/github/konsumer/tvinfo)
 
-### installation
-Install with `npm install --save tvinfo`.
-
 ## usage
 
 Have a look at `test/tvinfo.test.js` for some examples, but here is quick overview:
