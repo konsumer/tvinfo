@@ -4,7 +4,7 @@ This uses promises with [tvrage](http://tvrage.com) & [epguides](http://epguides
 
 It includes every tvrage API function.
 
-[![npm](https://www.npmjs.com/package/tvinfo)](https://nodei.co/npm/tvinfo.png)
+[![npm](https://nodei.co/npm/tvinfo.png)](https://www.npmjs.com/package/tvinfo)
 [![Build Status](https://travis-ci.org/konsumer/tvinfo.svg?branch=master)](https://travis-ci.org/konsumer/tvinfo)
 [![Code Climate](https://codeclimate.com/github/konsumer/tvinfo/badges/gpa.svg)](https://codeclimate.com/github/konsumer/tvinfo)
 
