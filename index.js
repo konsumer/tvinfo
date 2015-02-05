@@ -104,7 +104,7 @@ exports.shows = function(){
       agent: keepaliveAgent
     };
     get(null, true, options).then(function(str){
-      csv(str, {skip_empty_lines:true,trim:true,auto_parse:true,columns:["title", "directory", "id", "start_date", "end_date", "episode_count", "runtime", "network", "country"]}, function(err, data){
+      csv(str, {relax:true,skip_empty_lines:true,trim:true,auto_parse:true,columns:["title", "directory", "id", "start_date", "end_date", "episode_count", "runtime", "network", "country"]}, function(err, data){
         if (err) { return reject(err); }
         data.shift();
         resolve(data);
